@@ -2,10 +2,10 @@
   "name": "reactivator",
   "description": "A framework-independent package to transform data elements into reactive ones.",
   "version": "0.1.0",
-  "main": "dist/reactivator.js",
+  "main": "dist/index.js",
   "scripts": {
     "clean": "shx rm -rf dist && shx mkdir -p dist",
-    "build": "shx mkdir -p dist && shx cp README.md dist && shx cp src/reactivator.js dist",
+    "build": "shx mkdir -p dist && shx cp README.md dist && shx cp src/index.js dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
