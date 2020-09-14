@@ -1,11 +1,43 @@
-function Reactivator (thing) {
-  let obj = {
-    value: thing,
-    get () { return value },
-    set (val) { value = val }
+class Ref {
+  constructor(thing) {
+    this._value = thing;
+    this._subs = [ ];
   }
-  obj = thing;  // force first initialization using setter
-  return obj;
+  
+  get value () {
+    return this._value;
+  }
+
+  set value (val) { 
+    this._value = val;
+    // notify observers
+    this._subs.forEach(subFunc => 
+      subFunc()
+    );
+  }
+
+  watch (func) {
+    if (!this._subs.includes(func)) {
+      this._subs.push(func);
+    }
+  }  
+
+  unwatch (func) {
+    if (this._subs.includes(func)) {
+      this._subs = this._subs.filter(f => f !== func);
+    }
+  }  
 }
 
-module.exports.Reactivator = Reactivator;
+function watch(r, func) {
+  return r.watch(func);
+}
+function unwatch(r, func) {
+  return r.unwatch(func);
+}
+
+function ref(thing) {
+  return new Ref(thing);
+}
+
+export { ref, watch, unwatch };
