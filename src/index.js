@@ -1,40 +1,43 @@
-class Reactivator {
+class Ref {
   constructor(thing) {
-    this.value = thing;
+    this._value = thing;
     this._subs = [ ];
   }
   
-  get () {
-    return this.value;
+  get value () {
+    return this._value;
   }
 
-  set (val) { 
-    this.value = val;
+  set value (val) { 
+    this._value = val;
     // notify observers
     this._subs.forEach(subFunc => 
       subFunc()
     );
   }
+
+  watch (func) {
+    if (!this._subs.includes(func)) {
+      this._subs.push(func);
+    }
+  }  
+
+  unwatch (func) {
+    if (this._subs.includes(func)) {
+      this._subs = this._subs.filter(f => f !== func);
+    }
+  }  
 }
 
-function _Reactivator (thing) {
-  let obj = new Reactivator(thing);
-  // obj = thing;  // force first initialization using setter
-  return obj;
+function watch(r, func) {
+  return r.watch(func);
+}
+function unwatch(r, func) {
+  return r.unwatch(func);
 }
 
-
-Reactivator.prototype.subscribe =  function (func) {
-  if (!this._subs.includes(func))
-    this._subs.push(func);
+function ref(thing) {
+  return new Ref(thing);
 }
 
-Reactivator.prototype.unsubscribe = function (func) {
-  this._subs = this._subs.filter(f => f !== func);
-}
-
-module.exports.Reactivator = function (val) {
-  let obj = new Reactivator(val);
-  // obj = val;  // force initial assignment via setter
-  return obj;
-}
+export { ref, watch, unwatch };
