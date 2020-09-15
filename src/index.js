@@ -42,7 +42,14 @@ class Reactive {
         if (prop === 'unwatch') return _this.unwatch;
         if (prop === '_subs') return _this._subs;
 
-        // console.log(`Proxy get for '${prop}'`);
+        // See https://gomakethings.com/how-to-create-a-reactive-state-based-ui-component-with-vanilla-js-proxies/
+        // and https://gomakethings.com/how-to-detect-changes-to-nested-arrays-and-objects-inside-a-proxy/
+        // for this bit of very clever voodoo for the conditional.
+        if (['[object Object]', '[object Array]'].indexOf(Object.prototype.toString.call(obj[prop])) > -1) {
+          return new Proxy(obj[prop], _this.handler);
+        }        
+
+        console.log(`Proxy get for '${prop}'`);
         return obj[prop];
       },
       set (obj, prop, value) {
