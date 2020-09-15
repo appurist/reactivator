@@ -22,8 +22,9 @@
   ],
   "scripts": {
     "clean": "shx rm -rf dist && shx mkdir -p dist",
-    "build": "rollup -c",
     "prebuild": "run-s clean",
+    "build": "rollup -c",
+    "predev": "run-s clean",
     "dev": "rollup -c -w"
   },
   "dependencies": {},
