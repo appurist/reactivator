@@ -65,7 +65,11 @@ class Reactive {
           subFunc(obj, prop, old, value)
         );
         return obj[prop];
-      }
+      },
+      deleteProperty: function (obj, prop) {
+        delete obj[prop];
+        return true;
+      }      
     }
 
     this.obj = new Proxy(obj, this.handler);
