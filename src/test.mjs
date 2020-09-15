@@ -63,7 +63,7 @@ watch(state.test3, saved3 = (name, prop, old, val, obj) => {
     console.log(`Watch (top-level) for ${label}.${prop} changed to ${dumpValue(val)}`);
   else
   if (Array.isArray(obj) && parseInt(prop))
-    console.log(`Watch (top-level) for ${label}[${prop}] changed from ${dumpValue(old)} to ${dumpValue(val)}`);
+    console.log(`Watch (top-level) for ${label}[${prop}] changed from ${dumpValue(old)} to ${dumpValue(val)}: ${dumpValue(obj)}`);
   else
   if (old !== undefined) 
     console.log(`Watch (top-level) for ${label}.${prop} changed from ${dumpValue(old)} to ${dumpValue(val)}`);
