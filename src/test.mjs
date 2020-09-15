@@ -59,3 +59,10 @@ state.test3.field3 = 'completely new';
 unwatch(state.test3, saved3);
 
 state.test3.field2 = 'Goodbye';
+
+state.test3.arr = [ 'one' ];
+state.test3.arr.push('two');
+
+state.test3.sub1 = { sub1a: 'value1a', sub1b: 'value1b' };
+
+state.test3.sub1.sub1b = 'new1b';
