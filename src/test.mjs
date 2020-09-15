@@ -1,5 +1,5 @@
 //import { ref, reactive, watch, unwatch } from '../dist/reactivator.esm.js'
-import { ref, reactive, watch, unwatch } from '../src/index.js'
+import { ref, reactive, isRef, isReactive, watch, unwatch } from '../src/index.js'
 
 let state = {
   test1: ref('Hi there'),
@@ -8,16 +8,12 @@ let state = {
   init() {
     console.log('test1 =', this.test1.value)
     console.log('test2 =', this.test2.value)
-    console.log('test3 =', this.test3)
 
     this.test1.watch((old, val) => {
       console.log(`test1.value changed from ${old} to ${val}`);
     })
     this.test2.watch((old, val) => {
-    console.log(`test2.value changed from ${old} to ${val}`);
-    })
-    this.test3.watch((obj, prop, old, val) => {
-      console.log(`test3.${prop} changed from ${old} to ${val}`)
+      console.log(`test2.value changed from ${old} to ${val}`);
     })
   }
 }
@@ -28,8 +24,8 @@ state.test1.value = 'Hello';
 
 // Now add another "top-level" watch AFTER the first change.
 let saved = undefined;
-watch(state.test1, saved = () => { 
-  console.log('Top-level watch noticed test1 change to', state.test1.value);
+watch(state.test1, saved = (old, val) => { 
+  console.log(`Top-level watch noticed test1.value changed from ${old} to ${val}`);
 })
 
 state.test1.value += ' world';
@@ -50,19 +46,21 @@ state.test2.value++;
 state.test3.field1 = 99;
 let saved3 = undefined;
 watch(state.test3, saved3 = (obj, prop, old, val) => { 
-  console.log(`Top-level watch noticed test3.${prop} changed from ${old} to ${val}`);
+  console.log(`Watch for test3 noticed ${prop} change from ${old} to ${val}`);
 })
 
 state.test3.field1 = 100;
 state.test3.field3 = 'completely new';
 
-unwatch(state.test3, saved3);
-
 state.test3.field2 = 'Goodbye';
 
-state.test3.arr = [ 'one' ];
-state.test3.arr.push('two');
+state.test3.newArray = [ 'one' ];
+state.test3.newArray.push('two');
 
 state.test3.sub1 = { sub1a: 'value1a', sub1b: 'value1b' };
 
 state.test3.sub1.sub1b = 'new1b';
+
+unwatch(state.test3, saved3);
+
+state.test3.field1 = 101;
