@@ -1,81 +1,68 @@
-//import { ref, reactive, watch, unwatch } from '../dist/reactivator.esm.js'
-import { ref, reactive, isRef, isReactive, watch, unwatch } from '../src/index.js'
-
-function dumpValue(val) {
-  let result = ''
-  if (Array.isArray(val)) {
-    for (let x of val) {
-      if (result)
-        result += ','+dumpValue(x);
-      else
-        result += '['+dumpValue(x);
-    }
-    return result ? result + ']' : '[ ]'
-  } else {
-    return (typeof val === 'string') ? `'${val}'` : ''+val;
-  }
-}
+import { ref, reactive, isRef, isReactive, watch, unwatch, dumpValue } from '../src/index.js'
 
 let state = {
-  test1: ref('Hi there'),
-  test2: ref(5),
-  test3: reactive({field1: 42, field2: 'hello'}),
-  init() {
-    this.test1.watch((old, val) => {
-      console.log(`Watch noticed test1.value changed from ${dumpValue(old)} to ${dumpValue(val)}`);
-    })
-    this.test2.watch((old, val) => {
-      console.log(`Watch noticed test2.value changed from ${dumpValue(old)} to ${dumpValue(val)}`);
-    })
-  }
+  test1: ref(5),
+  test2: ref('Hi there'),
+  test3: reactive({field1: 42, field2: 'hello'})
 }
 
-state.init();
+console.log("isRef(test1):", isRef(state.test1));
+console.log("isReactive(test1):", isReactive(state.test1));
+console.log("isRef(test3):", isRef(state.test3));
+console.log("isReactive(test3):", isReactive(state.test3));
 
-state.test1.value = 'Hello';
-
-// Now add another "top-level" watch AFTER the first change.
-let saved = undefined;
-watch(state.test1, saved = (old, val) => { 
-  console.log(`Watch (top-level) for test1.value changed from ${dumpValue(old)} to ${dumpValue(val)}`);
+watch(state.test1, (old, val) => { 
+  console.log(`watch: test1.value changed from ${dumpValue(old)} to ${dumpValue(val)}`);
 })
 
-state.test1.value += ' world';
+state.test2.value = 'Hello';  // no watch installed yet, we'll miss this one
 
-// We should only see the one "Top-level" change notification above for "Hello there"
-unwatch(state.test1, saved);
+// save the watch so we can unwatch later
+let saved = watch(state.test2, (old, val) => { 
+  console.log(`watch: test2.value changed from ${dumpValue(old)} to ${dumpValue(val)}`);
+})
 
-state.test1.value = 'Goodbye!';
-
-//////////////////////////////////////////////////////////////////////////
-// Repeat a couple of changes with numbers
-state.test2.value = 6;
-
-state.test2.value++;
-
-//////////////////////////////////////////////////////////////////////////
-// Now repeat with an object
-state.test3.field1 = 99;
-let saved3 = undefined;
-watch(state.test3, saved3 = (name, prop, old, val, obj) => {
+// Let's define a more complex watch handler for object and array changes
+function onChangeTest3 (name, prop, old, val, obj) {
   let label = name ? `test3${name}` : 'test3';
   if (Array.isArray(obj) && prop === 'length')
-    console.log(`Watch (top-level) for ${label}.${prop} changed to ${dumpValue(val)}`);
+    console.log(`watch: ${label}.${prop} changed to ${dumpValue(val)}`);
   else
   if (Array.isArray(obj) && parseInt(prop))
-    console.log(`Watch (top-level) for ${label}[${prop}] changed from ${dumpValue(old)} to ${dumpValue(val)}: ${dumpValue(obj)}`);
+    console.log(`watch: ${label}[${prop}] changed from ${dumpValue(old)} to ${dumpValue(val)}: ${dumpValue(obj)}`);
   else
   if (old !== undefined) 
-    console.log(`Watch (top-level) for ${label}.${prop} changed from ${dumpValue(old)} to ${dumpValue(val)}`);
+    console.log(`watch: ${label}.${prop} changed from ${dumpValue(old)} to ${dumpValue(val)}`);
   else
   if (Array.isArray(val))
-    console.log(`Watch (top-level) for ${label}.${prop} assigned a new array ${dumpValue(val)}`);
+    console.log(`watch: ${label}.${prop} assigned a new array ${dumpValue(val)}`);
   else
   if (typeof val === 'object')
-    console.log(`Watch (top-level) for ${label}.${prop} assigned a new object.`);
+    console.log(`watch: ${label}.${prop} assigned a new object.`);
   else
-    console.log(`Watch (top-level) for ${label}.${prop} assigned value ${dumpValue(val)}`);
-})
+    console.log(`watch: ${label}.${prop} assigned value ${dumpValue(val)}`);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Now that the watches are in place, make a couple of changes with numbers.
+state.test1.value = 6;
+
+state.test1.value++;
+
+//////////////////////////////////////////////////////////////////////////////
+// Repeat a couple of changes with strings
+state.test2.value += ' world';
+
+// We should only see the change notification above for "Hello world", not "Goodbye!"
+unwatch(state.test2, saved);
+
+state.test2.value = 'Goodbye!';
+
+//////////////////////////////////////////////////////////////////////////////
+// Now repeat with an object
+state.test3.field1 = 99;  // no watch installed yet
+
+watch(state.test3, onChangeTest3); // now install the watch
 
 state.test3.field1 = 100;
 state.test3.field3 = 'completely new';
@@ -91,6 +78,6 @@ state.test3.sub1 = { sub1a: 'value1a', sub1b: 'value1b' };
 
 state.test3.sub1.sub1b = 'new1b';
 
-unwatch(state.test3, saved3);
+unwatch(state.test3, onChangeTest3); // now uninstall the watch
 
 state.test3.field1 = 101;

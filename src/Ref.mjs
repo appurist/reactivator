@@ -22,12 +22,15 @@ class Ref {
     if (!this._subs.includes(func)) {
       this._subs.push(func);
     }
+    return func;
   }  
 
   unwatch (func) {
     if (this._subs.includes(func)) {
       this._subs = this._subs.filter(f => f !== func);
+      return true;
     }
+    return false;
   }  
 }
 

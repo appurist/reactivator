@@ -25,7 +25,8 @@
     "prebuild": "run-s clean",
     "build": "rollup -c",
     "predev": "run-s clean",
-    "dev": "rollup -c -w"
+    "dev": "rollup -c -w",
+    "test": "node ./src/test.mjs"
   },
   "dependencies": {},
   "devDependencies": {
