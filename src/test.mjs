@@ -6,14 +6,11 @@ let state = {
   test2: ref(5),
   test3: reactive({field1: 42, field2: 'hello'}),
   init() {
-    console.log('test1 =', this.test1.value)
-    console.log('test2 =', this.test2.value)
-
     this.test1.watch((old, val) => {
-      console.log(`test1.value changed from ${old} to ${val}`);
+      console.log(`Watch noticed test1.value changed from ${old} to ${val}`);
     })
     this.test2.watch((old, val) => {
-      console.log(`test2.value changed from ${old} to ${val}`);
+      console.log(`Watch noticed test2.value changed from ${old} to ${val}`);
     })
   }
 }
@@ -25,7 +22,7 @@ state.test1.value = 'Hello';
 // Now add another "top-level" watch AFTER the first change.
 let saved = undefined;
 watch(state.test1, saved = (old, val) => { 
-  console.log(`Top-level watch noticed test1.value changed from ${old} to ${val}`);
+  console.log(`Watch (top-level) for test1 noticed test1.value changed from ${old} to ${val}`);
 })
 
 state.test1.value += ' world';
@@ -46,7 +43,7 @@ state.test2.value++;
 state.test3.field1 = 99;
 let saved3 = undefined;
 watch(state.test3, saved3 = (obj, prop, old, val) => { 
-  console.log(`Watch for test3 noticed ${prop} change from ${old} to ${val}`);
+  console.log(`Watch (top-level) for test3 noticed ${prop} change from ${old} to ${val}`);
 })
 
 state.test3.field1 = 100;
