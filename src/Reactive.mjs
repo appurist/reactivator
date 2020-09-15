@@ -42,17 +42,11 @@ var reactiveHandler = function (instance, label) {
   }
 }
 
-class Reactive {
-  constructor(obj, label, options) {
-    this._obj = obj;
-    this._subs = [ ];
-    this.obj = new Proxy(obj, reactiveHandler(this, label));
-    // this.obj._reactive = this;
-    this._reactive = this;
-    this._label = label;
-    this._options = options;
-    return this.obj;
-  }
+function Reactive (_obj, _label, _options) {
+  let instance = { _obj, _label, _options, _subs: [ ] }
+  instance._reactive = instance;
+  instance.obj = new Proxy(_obj, reactiveHandler(instance, _label));
+  return instance.obj;
 }
 
 export { Reactive };
