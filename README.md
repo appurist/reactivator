@@ -4,12 +4,12 @@ A framework-independent package to transform data elements into reactive ones.
 ## INSPIRATION
 This project was an attempt at learning how [Vue.js](https://vuejs.org/) works behind the scenes, and therefore is both inspired by Vue, and in many ways modeled after Vue. It incorporates some of the Composition API features in Vue 3, although is a much simpler implementation with fewer features and maturity. However, in spite of this, the lighter design and implementation may be appropriate for some projects.
 
-## NOT FOR USE (YET)
-This is a work-in-progress, and initial nonfunctional commit not intended for any purpose at this time. Published for end-to-end testing prior to release.
+## WORK IN PROGRESS
+This is an early work-in-progress, and initial nonfunctional commit not intended for any serious purpose at this time. It is a 0.x release meaning it is likely to have breaking changes as the interface is worked out in practice and more 
 
 ### EXAMPLE 1: Refs and Watches
 ```javascript
-import { ref, reactive, isRef, isReactive, watch, unwatch, dumpValue }  from '@appurist/reactivator.esm';
+import { ref, reactive, isRef, isReactive, watch, unwatch, dumpValue }  from 'reactivator.esm';
 
 let state = {
   test1: ref(5),

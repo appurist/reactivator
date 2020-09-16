@@ -1,5 +1,5 @@
 {
-  "name": "@appurist/reactivator",
+  "name": "reactivator",
   "description": "A framework-independent package to transform data elements into reactive ones.",
   "author": "Paul Whittemore <dev@appurist.com>",
   "license": "MIT",
@@ -8,6 +8,10 @@
   "main": "dist/reactivator.cjs.js",
   "module": "dist/reactivator.esm.js",
   "browser": "dist/reactivator.umd.js",
+  "exports": {
+    "import": "./dist/reactivator.esm.js",
+    "require": "./dist/reactivator.cjs.js"
+  },
   "homepage": "https://github.com/appurist/reactivator",
   "repository": {
     "type": "git",
