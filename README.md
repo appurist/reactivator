@@ -2,14 +2,14 @@
 A framework-independent package to transform data elements into reactive ones.
 
 ## INSPIRATION
-This project was an attempt at learning how [Vue.js](https://vuejs.org/) works behind the scenes, and therefore is both inspired by Vue, and in many ways modeled after Vue. It incorporates some of the Composition API features in Vue 3, although is a much simpler implementation with fewer features and maturity. However, in spite of this, the lighter design and implementation may be appropriate for some projects.
+This project was an attempt at learning how **Vue** works behind the scenes, and therefore is both inspired by [Vue.js](https://vuejs.org/) , and in many ways modeled after Vue. It incorporates a small portion of the Composition API features in Vue 3, although is a much simpler implementation with fewer features and maturity. However, in spite of this, the lighter design and implementation may be appropriate for some hobby projects.
 
 ## WORK IN PROGRESS
-This is an early work-in-progress, and initial nonfunctional commit not intended for any serious purpose at this time. It is a 0.x release meaning it is likely to have breaking changes as the interface is worked out in practice and more 
+This is an early work-in-progress, not intended for any serious purpose at this time. Furthermore, it is a 0.x release, meaning it is likely to have breaking changes as the interface is worked out in practice and more 
 
-### EXAMPLE 1: Refs and Watches
+### EXAMPLE: Refs, Reative Objects, and Watches
 ```javascript
-import { ref, reactive, isRef, isReactive, watch, unwatch, dumpValue }  from 'reactivator.esm';
+import { ref, reactive, isRef, isReactive, watch, unwatch, dumpValue } from 'reactivator';
 
 let state = {
   test1: ref(5),
@@ -34,6 +34,9 @@ let saved = watch(state.test2, (old, val) => {
 })
 
 // Let's define a more complex watch handler for object and array changes
+// This is an ugly function provided to show how powerful the parameters are in the watch callback.
+// Note dumpValue returns the text representation of strings as strings, arrays as arrays, etc.
+// See the output below for the end result of this function. 
 function onChangeTest3 (name, prop, old, val, obj) {
   let label = name ? `test3${name}` : 'test3';
   if (Array.isArray(obj) && prop === 'length')

@@ -1,9 +1,9 @@
 {
   "name": "reactivator",
   "description": "A framework-independent package to transform data elements into reactive ones.",
+  "version": "0.2.0",
   "author": "Paul Whittemore <dev@appurist.com>",
   "license": "MIT",
-  "version": "0.2.0",
   "type": "module",
   "main": "dist/reactivator.cjs.js",
   "module": "dist/reactivator.esm.js",
@@ -11,6 +11,15 @@
   "exports": {
     "import": "./dist/reactivator.esm.js",
     "require": "./dist/reactivator.cjs.js"
+  },
+  "scripts": {
+    "clean": "shx rm -rf dist && shx mkdir -p dist",
+    "prebuild": "run-s clean",
+    "predev": "run-s clean",
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "postbuild": "shx cp README.md dist",
+    "test": "node ./src/test.mjs"
   },
   "homepage": "https://github.com/appurist/reactivator",
   "repository": {
@@ -22,16 +31,12 @@
   },
   "keywords": [
     "reactive",
-    "javascript"
+    "framework",
+    "javascript",
+    "livekit",
+    "live",
+    "simple"
   ],
-  "scripts": {
-    "clean": "shx rm -rf dist && shx mkdir -p dist",
-    "prebuild": "run-s clean",
-    "build": "rollup -c",
-    "predev": "run-s clean",
-    "dev": "rollup -c -w",
-    "test": "node ./src/test.mjs"
-  },
   "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.1",

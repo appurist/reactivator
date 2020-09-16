@@ -12,8 +12,8 @@ export default [
 			format: 'umd'
 		},
 		plugins: [
-			resolve(), // so Rollup can find `ms`
-			commonjs() // so Rollup can convert `ms` to an ES module
+			resolve(), // so Rollup can find external: module
+			commonjs() // so Rollup can convert cjs imports to an ES module
 		]
 	},
 
@@ -25,7 +25,7 @@ export default [
 	// `file` and `format` for each target)
 	{
 		input: 'src/index.js',
-		// external: ['ms'],
+		// external: ['moment'],  // example
 		output: [
 			{ file: pkg.main, format: 'cjs' },
 			{ file: pkg.module, format: 'es' }
