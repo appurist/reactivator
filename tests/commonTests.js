@@ -1,3 +1,5 @@
+import { unwatch } from "../src";
+
 export default function(lib) {
 
 const { ref, watch } = lib;
@@ -33,6 +35,28 @@ describe('watch tests', () => {
     data.value++; // trigger watch
     expect(reaction).to.equal(data.value);
     expect(reaction).to.equal(43);
+  });
+  it('unwatch no longer sees change', () => {
+    let reaction = undefined;
+    let data = ref(42);
+    let handler = undefined;
+  
+    watch (data, handler = (old, val) => { 
+      expect(old).to.equal(42);
+      expect(val).to.equal(43);
+      reaction = val;
+    })
+  
+    data.value++; // trigger watch
+    expect(reaction).to.equal(data.value);
+    expect(reaction).to.equal(43);
+
+    unwatch (data, handler);
+    data.value++; // change value
+    expect(reaction).to.not.equal(data.value);
+    expect(reaction).to.equal(43);
+    expect(data.value).to.equal(44);
+
   });
 });
 
