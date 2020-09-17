@@ -11,14 +11,14 @@ console.log("isReactive(test1):", isReactive(state.test1));
 console.log("isRef(test3):", isRef(state.test3));
 console.log("isReactive(test3):", isReactive(state.test3));
 
-watch(state.test1, (old, val) => { 
+watch(state.test1, (old, val) => {
   console.log(`watch: test1.value changed from ${dumpValue(old)} to ${dumpValue(val)}`);
 })
 
 state.test2.value = 'Hello';  // no watch installed yet, we'll miss this one
 
 // save the watch so we can unwatch later
-let saved = watch(state.test2, (old, val) => { 
+let saved = watch(state.test2, (old, val) => {
   console.log(`watch: test2.value changed from ${dumpValue(old)} to ${dumpValue(val)}`);
 })
 
