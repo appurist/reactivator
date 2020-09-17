@@ -3,12 +3,11 @@
 
 This project is a _very small_ library package that provides simple reactivity to arbitrary data elements. It is platform agnostic, however it is not intended for use in combination with other frameworks which may implement the same functionality, or have naming clashes.
 
-### Reactivator Wiki
-There is a wiki, with much more detailed descriptions of this package, here: [https://github.com/appurist/reactivator/wiki/](https://github.com/appurist/reactivator/wiki/)
+### Reactivator Wiki and API Documentation
 
-### JAVASCRIPT API
+For more information, see [the Reactivator Wiki](https://github.com/appurist/reactivator/wiki/) for more.
 
-Several functions are available in the Reactivator API for JavaScript. See [the API page](https://github.com/appurist/reactivator/wiki/API) for more.
+In particular, several functions are available in the Reactivator API for JavaScript. See [the API page](https://github.com/appurist/reactivator/wiki/Reactivator-API) for more.
 
 ### Example use of Refs, Reactive Objects, and Watches
 
