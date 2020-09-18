@@ -3,6 +3,7 @@ class Ref {
     this._value = thing;
     this._subs = [ ];
     this._ref = this;
+    this._name = ''+thing;
   }
   
   get value () {
@@ -14,7 +15,7 @@ class Ref {
     this._value = val;
     // notify observers
     this._subs.forEach(subFunc => 
-      subFunc(old, val, 'value', '', this)      
+      subFunc(old, val, 'value', this._name, this)      
     );
   }
 
