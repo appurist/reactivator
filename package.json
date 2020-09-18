@@ -22,8 +22,8 @@
     "example": "node ./src/example.mjs",
     "test:record": "cypress run --record",
     "test": "cypress run",
-    "changelog": "run-s auto-changelog --stdout --commit-limit false",
-    "prerelease": "run-s clean build changelog",
+    "changelog": "run-s auto-changelog -p",
+    "prerelease": "run-s clean build",
     "release": "release-it"
   },
   "homepage": "https://appurist.github.io/reactivator/",
