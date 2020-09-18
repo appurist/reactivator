@@ -23,7 +23,7 @@
     "test:record": "cypress run --record",
     "test": "cypress run"
   },
-  "homepage": "https://github.com/appurist/reactivator",
+  "homepage": "https://appurist.github.io/reactivator/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/appurist/reactivator.git"
