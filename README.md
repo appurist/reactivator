@@ -11,7 +11,7 @@ In particular, several functions are available in the Reactivator API for JavaSc
 
 ### Example use of Refs, Reactive Objects, and Watches
 
-See also [the example page](https://github.com/appurist/reactivator/wiki/Example-use-of-ref(),-reactive()-and-watch()) for a source code example, as well as the resulting [output](https://github.com/appurist/reactivator/wiki/Example-use-of-ref(),-reactive()-and-watch()#output).
+See also [the example page](https://github.com/appurist/reactivator/wiki/Summary:-Example-use-of-ref(),-reactive()-and-watch()) for a source code example, as well as the resulting [output](https://github.com/appurist/reactivator/wiki/Summary:-Example-use-of-ref(),-reactive()-and-watch()#output).
 
 ### WORK IN PROGRESS
 This is an early work-in-progress, not intended for any serious purpose at this time. Furthermore, it is a 0.x release, meaning it is likely to have breaking changes as the interface is worked out in practice, and becomes more complete.
