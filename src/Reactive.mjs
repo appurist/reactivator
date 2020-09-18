@@ -30,7 +30,7 @@ var reactiveHandler = function (instance, label) {
       obj[prop] = value;
       // notify observers
       instance._subs.forEach(subFunc => 
-        subFunc(label, prop, old, value, obj)
+        subFunc(old, value, prop, label, value)
       );
       return obj[prop];
     },

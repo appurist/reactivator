@@ -14,7 +14,7 @@ class Ref {
     this._value = val;
     // notify observers
     this._subs.forEach(subFunc => 
-      subFunc(old, val)      
+      subFunc(old, val, 'value', '', this)      
     );
   }
 
