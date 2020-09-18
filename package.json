@@ -20,6 +20,7 @@
     "build": "rollup -c",
     "postbuild": "shx cp README.md dist",
     "example": "node ./src/example.mjs",
+    "test:record": "cypress run --record",
     "test": "cypress run"
   },
   "homepage": "https://github.com/appurist/reactivator",
