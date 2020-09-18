@@ -81,3 +81,18 @@ state.test3.sub1.sub1b = 'new1b';
 unwatch(state.test3, onChangeTest3); // now uninstall the watch
 
 state.test3.field1 = 101;
+
+let count = ref(42)
+
+count.value++;  // this one gets missed, no watch handler yet
+
+let savedHandler = watch(count, (old, val) => {
+  console.log(`count has changed from ${old} to ${val}`)
+})
+
+count.value++;  // this one is recorded by the watch above
+count.value++;  // this one is recorded by the watch above
+
+unwatch(count, savedHandler);
+
+count.value++;  // this one gets missed
