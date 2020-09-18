@@ -1,4 +1,6 @@
-import { ref, reactive, isRef, isReactive, watch, unwatch, dumpValue } from '../src/index.js'
+import { ref, reactive, isRef, isReactive, watch, unwatch, dumpValue } from '../dist/reactivator.esm.js'
+
+// This is a richer "kitchen sink" example of the functions available from the reactivator package.
 
 let state = {
   test1: ref(5),
@@ -11,19 +13,22 @@ console.log("isReactive(test1):", isReactive(state.test1));
 console.log("isRef(test3):", isRef(state.test3));
 console.log("isReactive(test3):", isReactive(state.test3));
 
-watch(state.test1, (old, val) => {
+watch(state.test1, (old, val) => { 
   console.log(`watch: test1.value changed from ${dumpValue(old)} to ${dumpValue(val)}`);
 })
 
 state.test2.value = 'Hello';  // no watch installed yet, we'll miss this one
 
 // save the watch so we can unwatch later
-let saved = watch(state.test2, (old, val) => {
+let saved = watch(state.test2, (old, val) => { 
   console.log(`watch: test2.value changed from ${dumpValue(old)} to ${dumpValue(val)}`);
 })
 
 // Let's define a more complex watch handler for object and array changes
-function onChangeTest3 (name, prop, old, val, obj) {
+// This is an ugly function provided to show how powerful the parameters are in the watch callback.
+// Note dumpValue returns the text representation of strings as strings, arrays as arrays, etc.
+// See the output below for the end result of this function. 
+function onChangeTest3 (old, val, prop, name, obj) {
   let label = name ? `test3${name}` : 'test3';
   if (Array.isArray(obj) && prop === 'length')
     console.log(`watch: ${label}.${prop} changed to ${dumpValue(val)}`);
@@ -38,7 +43,7 @@ function onChangeTest3 (name, prop, old, val, obj) {
     console.log(`watch: ${label}.${prop} assigned a new array ${dumpValue(val)}`);
   else
   if (typeof val === 'object')
-    console.log(`watch: ${label}.${prop} assigned a new object.`);
+    console.log(`watch: ${label}.${prop} assigned a new object: ${dumpValue(val, true)}`);
   else
     console.log(`watch: ${label}.${prop} assigned value ${dumpValue(val)}`);
 }
@@ -56,7 +61,7 @@ state.test2.value += ' world';
 // We should only see the change notification above for "Hello world", not "Goodbye!"
 unwatch(state.test2, saved);
 
-state.test2.value = 'Goodbye!';
+state.test2.value = 'Goodbye!'; // no watches, this one is missed
 
 //////////////////////////////////////////////////////////////////////////////
 // Now repeat with an object
@@ -80,19 +85,4 @@ state.test3.sub1.sub1b = 'new1b';
 
 unwatch(state.test3, onChangeTest3); // now uninstall the watch
 
-state.test3.field1 = 101;
-
-let count = ref(42)
-
-count.value++;  // this one gets missed, no watch handler yet
-
-let savedHandler = watch(count, (old, val) => {
-  console.log(`count has changed from ${old} to ${val}`)
-})
-
-count.value++;  // this one is recorded by the watch above
-count.value++;  // this one is recorded by the watch above
-
-unwatch(count, savedHandler);
-
-count.value++;  // this one gets missed
+state.test3.field1 = 101;   // this change will be missed

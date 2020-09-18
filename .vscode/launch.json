@@ -11,7 +11,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}\\examples\\ex-reactive2.mjs"
+      "program": "${workspaceFolder}\\examples\\example.mjs"
     }
   ]
 }
