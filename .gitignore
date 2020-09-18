@@ -4,3 +4,4 @@ dist
 private
 *.out.txt
 test.cmd
+release.cmd
