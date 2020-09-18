@@ -1,7 +1,7 @@
 import { Ref } from './Ref.mjs';
 import { Reactive } from './Reactive.mjs';
 
-function dumpValue(val) {
+function dumpValue(val, objToJSON) {
   let result = ''
   if (Array.isArray(val)) {
     for (let x of val) {
@@ -12,6 +12,9 @@ function dumpValue(val) {
     }
     return result ? result + ']' : '[ ]'
   } else {
+    if (objToJSON && (typeof val === 'object')) {
+      return JSON.stringify(val);
+    }
     return (typeof val === 'string') ? `'${val}'` : ''+val;
   }
 }
