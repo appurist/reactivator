@@ -1,5 +1,4 @@
-// import { ref } from '../../dist/reactivator.esm'
-const lib = require('../../src/index')
+const lib = require('../../dist/reactivator.cjs.js')
 
 const commonTests = require('../../tests/commonTests');
 
