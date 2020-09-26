@@ -1,6 +1,6 @@
 export default function(lib) {
 
-  const { ref, reactive, computed, watch, unwatch } = lib;
+  const { ref, reactive, computed, isRef, isReactive, isComputed, watch, unwatch } = lib;
 
   describe('simple integer .value tests', () => {
     it('initialize/read', () => {
@@ -161,6 +161,55 @@ export default function(lib) {
       data.textField = 'Goodbye';
       expect(computedCombine.value).to.equal(combineFields(data));
       expect(computedCombine.value).to.equal('Goodbye #999');
+    });
+  });
+
+  describe('is function tests', () => {
+    it('test isRef against several types', () => {
+      function addOne(context) {
+        return context.value + 1;
+      }
+      let dataRef = ref(42)
+      let dataReactive = reactive({textField: 'Hello', numField: 100})
+      let computedAdd = computed(dataRef, addOne);
+
+      expect(isRef(4)).to.be.false;
+      expect(isRef({ })).to.be.false;
+      expect(isRef(dataRef)).to.be.true;
+      expect(isRef(dataReactive)).to.be.false;
+      expect(isRef(computedAdd)).to.be.false;
+    });
+  });
+  describe('is function tests', () => {
+    it('test isReactive against several types', () => {
+      function addOne(context) {
+        return context.value + 1;
+      }
+      let dataRef = ref(42)
+      let dataReactive = reactive({textField: 'Hello', numField: 100})
+      let computedAdd = computed(dataRef, addOne);
+
+      expect(isReactive(4)).to.be.false;
+      expect(isReactive({ })).to.be.false;
+      expect(isReactive(dataRef)).to.be.false;
+      expect(isReactive(dataReactive)).to.be.true;
+      expect(isReactive(computedAdd)).to.be.false;
+    });
+  });
+  describe('is function tests', () => {
+    it('test isComputed against several types', () => {
+      function addOne(context) {
+        return context.value + 1;
+      }
+      let dataRef = ref(42)
+      let dataReactive = reactive({textField: 'Hello', numField: 100})
+      let computedAdd = computed(dataRef, addOne);
+
+      expect(isComputed(4)).to.be.false;
+      expect(isComputed({ })).to.be.false;
+      expect(isComputed(dataRef)).to.be.false;
+      expect(isComputed(dataReactive)).to.be.false;
+      expect(isComputed(computedAdd)).to.be.true;
     });
   });
 }
