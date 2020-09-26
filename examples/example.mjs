@@ -1,11 +1,11 @@
-import { ref, reactive, isRef, isReactive, watch, unwatch, dumpValue } from '../dist/reactivator.esm.js'
+import { ref, reactive, computed, isRef, isReactive, isComputed, watch, unwatch, dumpValue } from '../dist/reactivator.esm.js'
 
 // This is a richer "kitchen sink" example of the functions available from the reactivator package.
 
 let state = {
   test1: ref(5),
   test2: ref('Hi there'),
-  test3: reactive({field1: 42, field2: 'hello'})
+  test3: reactive({textField: 'Hello', numField: 42})
 }
 
 console.log("isRef(test1):", isRef(state.test1));
@@ -13,8 +13,24 @@ console.log("isReactive(test1):", isReactive(state.test1));
 console.log("isRef(test3):", isRef(state.test3));
 console.log("isReactive(test3):", isReactive(state.test3));
 
+// define a computed reference based on state.test1 and an addOne function
+function addOne(context) {
+  return context.value + 1;
+}
+let computedAddOne = computed(state.test1, addOne);
+
+console.log("isComputed(state.test1):", isComputed(state.test1));
+console.log("isComputed(computedAddOne):", isComputed(computedAddOne));
+
+// define a computed reference based on state.test3 and a combineFields function
+function combineFields(context) {
+  return context.textField + ' #' + context.numField;
+}
+let computedCombine = computed(state.test3, combineFields)
+
 watch(state.test1, (old, val) => { 
   console.log(`watch: test1.value changed from ${dumpValue(old)} to ${dumpValue(val)}`);
+  console.log(`watch: computed addOne(test1) is now ${dumpValue(computedAddOne.value)}`);
 })
 
 state.test2.value = 'Hello';  // no watch installed yet, we'll miss this one
@@ -46,6 +62,7 @@ function onChangeTest3 (old, val, prop, name, obj) {
     console.log(`watch: ${label}.${prop} assigned a new object: ${dumpValue(val, true)}`);
   else
     console.log(`watch: ${label}.${prop} assigned value ${dumpValue(val)}`);
+  console.log(`watch: computed combineFields(state.test3) is now ${dumpValue(computedCombine.value)}`);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -65,14 +82,14 @@ state.test2.value = 'Goodbye!'; // no watches, this one is missed
 
 //////////////////////////////////////////////////////////////////////////////
 // Now repeat with an object
-state.test3.field1 = 99;  // no watch installed yet
+state.test3.numField = 99;  // no watch installed yet
 
 watch(state.test3, onChangeTest3); // now install the watch
 
-state.test3.field1 = 100;
+state.test3.numField = 100;
 state.test3.field3 = 'completely new';
 
-state.test3.field2 = 'Goodbye';
+state.test3.textField = 'Goodbye';
 
 state.test3.emptyArray = [  ];
 
@@ -85,4 +102,4 @@ state.test3.sub1.sub1b = 'new1b';
 
 unwatch(state.test3, onChangeTest3); // now uninstall the watch
 
-state.test3.field1 = 101;   // this change will be missed
+state.test3.numField = 101;   // this change will be missed
