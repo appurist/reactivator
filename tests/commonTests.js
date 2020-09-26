@@ -1,8 +1,6 @@
-import { unwatch } from "../src";
-
 export default function(lib) {
 
-  const { ref, watch } = lib;
+  const { ref, reactive, computed, watch, unwatch } = lib;
 
   describe('simple integer .value tests', () => {
     it('initialize/read', () => {
@@ -116,6 +114,53 @@ export default function(lib) {
       expect(reaction).to.not.equal(data.value);
       expect(reaction).to.equal(5);
       expect(changes).to.equal(2);  // still
+    });
+  });
+
+  describe('computed tests', () => {
+    it('computed values correct for direct variables (via lambda)', () => {
+      let data = 12;
+      let computedSubtract = computed(() => {
+        return data - 1;
+      });
+      // computedSubtract.value should follow data as it changes
+      expect(computedSubtract.value).to.equal(data-1);
+      data = 100;
+      expect(computedSubtract.value).to.equal(data-1);
+      data += 10;
+      expect(computedSubtract.value).to.equal(data-1);
+    });
+    
+    it('computed values correct for refs', () => {
+      let data = ref(42)
+      function addOne(context) {
+        return context.value + 1;
+      }
+      let computedAdd = computed(data, addOne);
+      // computedAdd.value should follow data.value as it changes
+      expect(computedAdd.value).to.equal(data.value+1);
+      data.value = 100;
+      expect(computedAdd.value).to.equal(data.value+1);
+      data.value += 10;
+      expect(computedAdd.value).to.equal(data.value+1);
+    });
+
+    it('computed values correct for reactive objects', () => {
+      let data = reactive({textField: 'Hello', numField: 100})
+      function combineFields(context) {
+        return context.textField + ' #' + context.numField;
+      }
+      let computedCombine = computed(data, combineFields)
+      // computedSubtract.value should follow data.value as it changes
+      expect(computedCombine.value).to.equal(combineFields(data));
+      expect(computedCombine.value).to.equal('Hello #100');
+      data.numField++;
+      expect(computedCombine.value).to.equal(combineFields(data));
+      expect(computedCombine.value).to.equal('Hello #101');
+      data.numField = 999;
+      data.textField = 'Goodbye';
+      expect(computedCombine.value).to.equal(combineFields(data));
+      expect(computedCombine.value).to.equal('Goodbye #999');
     });
   });
 }
