@@ -1,4 +1,4 @@
-import * as lib from '../../dist/reactivator.esm'
+import * as lib from '../../dist/reactivator.esm.js'
 
 import commonTests from '../../tests/commonTests'
 

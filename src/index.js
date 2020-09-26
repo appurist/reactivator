@@ -1,4 +1,5 @@
 import { Ref } from './Ref.mjs';
+import { Computed } from './Computed.mjs';
 import { Reactive } from './Reactive.mjs';
 
 function dumpValue(val, objToJSON) {
@@ -29,6 +30,10 @@ function isReactive(r) {
       return true;
 
   return false;
+}
+
+function isComputed(r) {
+  return r.hasOwnProperty('_computed') && r._computed === r;
 }
 
 function watch(r, func) {
@@ -65,4 +70,13 @@ function reactive(thing) {
   return new Reactive(thing);
 }
 
-export { Ref, Reactive, ref, reactive, isRef, isReactive, watch, unwatch, dumpValue };
+function computed(exprFunc, context) {
+  return new Computed(exprFunc, context);
+}
+
+export {
+  Ref, Reactive, Computed,
+  ref, reactive, computed,
+  isRef, isReactive, isComputed,
+  watch, unwatch, dumpValue
+};
