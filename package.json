@@ -1,7 +1,7 @@
 {
   "name": "reactivator",
   "description": "A framework-independent package to transform data elements into reactive ones.",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "author": "Paul Whittemore <dev@appurist.com>",
   "license": "MIT",
   "type": "module",
