@@ -9,8 +9,6 @@ For more information, see [the Reactivator Wiki](https://github.com/appurist/rea
 
 In particular, several functions are available in the Reactivator API for JavaScript. See [the API page](https://github.com/appurist/reactivator/wiki/Reactivator-API) for more.
 
-### Example use of Refs, Reactive Objects, and Watches
-
 See also [the example page](https://github.com/appurist/reactivator/wiki/Summary:-Example-use-of-ref(),-reactive()-and-watch()) for a source code example, as well as the resulting [output](https://github.com/appurist/reactivator/wiki/Summary:-Example-use-of-ref(),-reactive()-and-watch()#output).
 
 ### WORK IN PROGRESS
