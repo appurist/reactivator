@@ -70,8 +70,8 @@ function reactive(thing) {
   return new Reactive(thing);
 }
 
-function computed(exprFunc, context) {
-  return new Computed(exprFunc, context);
+function computed(context, exprFunc) {
+  return new Computed(context, exprFunc);
 }
 
 export {
