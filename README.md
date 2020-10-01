@@ -1,7 +1,7 @@
 # reactivator [![reactivator](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/d4b7my/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/d4b7my/runs)
 #### A framework-independent package to transform data elements into reactive ones.
 
-This project is a _very small_ library package that provides simple reactivity to arbitrary data elements. It has **no** runtime dependencies. It is platform agnostic, however it is not intended for use in combination with other frameworks which may implement the same functionality, or have naming clashes.
+This project is a _very small_ library package that provides simple yet rich reactivity to arbitrary data elements. It has **no** runtime dependencies. It is platform agnostic, however it is not intended for use in combination with other frameworks which may implement the same functionality, or have naming clashes.
 
 ### Reactivator Wiki and API Documentation
 
