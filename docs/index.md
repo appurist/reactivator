@@ -1,4 +1,4 @@
-This project is a _very small_ library package that provides simple reactivity to arbitrary data elements. It has **no** runtime dependencies. It is platform agnostic, however it is not intended for use in combination with other frameworks which may implement the same functionality, or have naming clashes.
+This project is a _very small_ library package that provides simple but rich reactivity to arbitrary data elements. It has **no** runtime dependencies. It is platform agnostic, however it is not intended for use in combination with other frameworks which may implement the same functionality, or have naming clashes.
 
 ### Reactivator Wiki and API Documentation
 
