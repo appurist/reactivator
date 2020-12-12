@@ -1,6 +1,7 @@
 class Ref {
   constructor(thing) {
     this._value = thing;
+    this._dirty = 0;
     this._subs = [ ];
     this._ref = this;
     this._name = ''+thing;
@@ -12,11 +13,19 @@ class Ref {
 
   set value (val) { 
     let old = this._value;
+    if (val === old) return;
+
     this._value = val;
+    this._dirty++;
     // notify observers
     this._subs.forEach(subFunc => 
       subFunc(old, val, 'value', this._name, this)      
     );
+  }
+
+  isDirty(since) {
+    // absolute - absolute rather than inequality also handles signed wrap
+    return since ? this._dirty - since : this._dirty;
   }
 
   watch (func) {

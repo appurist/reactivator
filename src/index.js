@@ -36,6 +36,18 @@ function isComputed(r) {
   return r.hasOwnProperty('_computed') && r._computed === r;
 }
 
+// returns a non-zero value if modified since 'since' update
+// where 'since' is an internal incrementing revision number.
+function isDirty(r, since) {
+  if (isRef(r)) {
+    return r.isDirty(since);
+  }
+  if (isReactive(r)) {
+    return r.isDirty(since);
+  }
+  return 0;
+}
+
 function watch(r, func) {
   if (isRef(r)) {
     return r.watch(func);

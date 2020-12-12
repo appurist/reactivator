@@ -1,5 +1,7 @@
 var reactiveHandler = function (instance, name) {
+  let _dirty = 0;
 	return {
+    // standard JavaScript Proxy getter
     get (obj, prop, receiver) {
       if (prop === '_reactive') return instance._reactive;
       if (prop === '_subs') return instance._subs;
@@ -18,7 +20,9 @@ var reactiveHandler = function (instance, name) {
 
       return obj[prop];
     },
+    // standard JavaScript Proxy setter
     set (obj, prop, value) {
+      _dirty++;
       // console.log(`Proxy set '${prop}' to ${value}`); 
       // if (prop === '_reactive') return instance._reactive = value;
       if (prop === '_subs') return instance._subs = value;
@@ -38,7 +42,11 @@ var reactiveHandler = function (instance, name) {
       // console.log(`<< Deleting prop: ${prop}`);
       delete obj[prop];
       return true;
-    }      
+    },
+    isDirty(since) {
+      // absolute - absolute rather than inequality also handles signed wrap
+      return since ? _dirty - since : _dirty;
+    }
   }
 }
 
