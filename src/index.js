@@ -90,5 +90,5 @@ export {
   Ref, Reactive, Computed,
   ref, reactive, computed,
   isRef, isReactive, isComputed,
-  watch, unwatch, dumpValue
+  isDirty, watch, unwatch, dumpValue
 };

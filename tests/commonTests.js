@@ -36,6 +36,37 @@ export default function(lib) {
     })
   });
 
+  describe('isDirty tests', () => {
+    it('initialize/zero', () => {
+      let data = ref(42);
+      expect(data.isDirty()).to.equal(0);
+    })
+    it('increment', () => {
+      let data = ref(42);
+      data.value++;
+      expect(data.isDirty()).to.equal(1);
+    })
+    it('assignment', () => {
+      let data = ref(42);
+      data.value = 99
+      expect(data.isDirty()).to.equal(1);
+    })
+    it('increment+assignment', () => {
+      let data = ref(42);
+      data.value++;
+      data.value = 99
+      expect(data.isDirty()).to.equal(2);
+    })
+    it('increment+assignment/relative', () => {
+      let data = ref(42);
+      data.value++;
+      let dirt = data.isDirty();
+      data.value = 99
+      expect(data.isDirty()).to.equal(2);
+      expect(data.isDirty(dirt)).to.equal(1);
+    })
+  });
+
   describe('watch tests', () => {
     it('watch parameters correct, sees change', () => {
       let reaction = undefined;
