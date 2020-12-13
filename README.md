@@ -12,20 +12,21 @@ In particular, several functions are available in the Reactivator API for JavaSc
 See also [the example page](https://github.com/appurist/reactivator/wiki/Summary:-Example-Usage) for a source code example, as well as the resulting [output](https://github.com/appurist/reactivator/wiki/Summary:-Example-Usage#output).
 
 ### WORK IN PROGRESS
+
 This is an early work-in-progress, not intended for any serious purpose at this time. Furthermore, it is a 0.x release, meaning it is likely to have breaking changes as the interface is worked out in practice, and becomes more complete.
 
-### COMING SOON
-Key changes in the upcoming releases (probably 0.5.0):
-- "dirty" generational support, with each `ref` and `reactive` object tracking a generation (incrementing) number so that callers will know if a specific object has changed since the last time it checked.
-- The above dirty support will result in a dirty counter being added and an `isDirty(since)` method appearing in the API.
-- Dirty support is needed for the LiveKit release (see below).
+### ROADMAP - FUTURE UPDATES
+
+With the inclusion of isDirty in 0.5.0, there are no known issues or missing roadmap features. Updates will continue as issues are found and resolved, or as new features become evident.
 
 ### INSPIRATION
+
 This project has been an attempt at learning how reactivity other frameworks works behind the scenes, especially in Vue, by implementing major features of it from scratch. It is therefore both inspired by [Vue.js](https://vuejs.org/), and in many ways, is modeled after Vue. It incorporates a _small_ portion of the Composition API features in Vue 3, although is a much simpler implementation with fewer features and less maturity.
 
 Note that in spite of the inspiration, there are some significant differences in this code. It is not intended to be compatible with the Vue API (why bother replicating Vue reactivity exactly?) and has some significant differences that may make it easier to use.  The use of JavaScript `Proxy` methods _on the reactive data elements themselves rather than their members_ allow for much simpler implementations than even Vue 3 (e.g. no tracking), but this is a learning process and there are probably many good reasons for that in Vue 3 (e.g. perhaps the Vue compiler's hints provided for runtime optimizations). However, in spite of this, the lighter design and implementation may be appropriate for some hobby projects.
 
 ### LIVEKIT
+
 This project is really a subproject of the **LiveKit** project, which is a very light JavaScript framework. In fact it is so light that it requires *no bundling*, not even web *hosting* to serve the file: you can double-click a .html file to use it, even in production. The **Reactivator** project is just the reactive data provider for **LiveKit**. It may be useful on its own and is available now so it has been provided separately.
 
 Both of these were just personal projects, originally started in order to gain a deeper understanding of how these kinds of packages and frameworks actually worked. But a secondary goal was to achieve something useful to my own hobby projects that were so light that major frameworks were overkill. And to kiss goodbye the complexities of webkit, etc.
