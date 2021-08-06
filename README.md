@@ -9,6 +9,8 @@ For more information, see [the Reactivator Wiki](https://github.com/appurist/rea
 
 In particular, several functions are available in the Reactivator API for JavaScript. See [the API page](https://github.com/appurist/reactivator/wiki/Reactivator-API) for more.
 
+If you only check one other page page, take a look at the examples in [the reactive() function](https://github.com/appurist/reactivator/wiki/Reactivator-API:-reactive()) page.
+
 See also [the example page](https://github.com/appurist/reactivator/wiki/Summary:-Example-Usage) for a source code example, as well as the resulting [output](https://github.com/appurist/reactivator/wiki/Summary:-Example-Usage#output).
 
 ### WORK IN PROGRESS
@@ -17,7 +19,7 @@ This is an early work-in-progress, not intended for any serious purpose at this 
 
 ### ROADMAP - FUTURE UPDATES
 
-With the inclusion of isDirty in 0.5.0, there are no known issues or missing roadmap features. Updates will continue as issues are found and resolved, or as new features become evident.
+With the inclusion of isDirty in 0.5.0, the initial basic roadmap feature set is complete. Updates will continue as issues are found and resolved, or as new features become evident.
 
 ### INSPIRATION
 
