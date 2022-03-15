@@ -14,6 +14,7 @@
   },
   "scripts": {
     "clean": "shx rm -rf dist && shx mkdir -p dist",
+    "resolve": "npx npm-force-resolutions",
     "prebuild": "run-s clean",
     "predev": "run-s clean",
     "dev": "rollup -c -w",
@@ -42,6 +43,9 @@
     "live",
     "simple"
   ],
+  "resolutions": {
+    "ansi-regex": "5.0.1"
+  },
   "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21",
