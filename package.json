@@ -42,8 +42,7 @@
     "live",
     "simple"
   ],
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21",
     "@rollup/plugin-node-resolve": "^13",
