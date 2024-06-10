@@ -20,7 +20,7 @@
     "dev": "rollup -c -w",
     "build": "rollup -c",
     "postbuild": "shx cp README.md dist",
-    "example": "node ./src/example.mjs",
+    "example": "node ./examples/example.mjs",
     "test:record": "cypress run --record",
     "test": "cypress run --record false",
     "changelog": "auto-changelog -p",
