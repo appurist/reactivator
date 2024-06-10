@@ -18,8 +18,8 @@ class Computed {
     return this._exprFunc.call(this._context, this._context);
   }
 
-  set value (val) { 
-    throw 'Computed values cannot be assigned.'
+  set value (val) {
+    throw Error('Computed values cannot be assigned.')
   }
 }
 

@@ -35,6 +35,6 @@ Both of these were just personal projects, originally started in order to gain a
 
 Use of separate external component files in LiveKit, including single-file components (SFCs), require at least web hosting due to CORS concerns (and file access from browsers). However, something as simple as the [http-server](https://www.npmjs.com/package/http-server) package or equivalent (or a simple Express or Fastify server with static file support) can be used to serve LiveKit apps.
 
-I have also experimented with very basic, generic use of [Rollup](https://rollupjs.org/) as an optional delivery mechanism in order to gain automatic tree-shaking, simplify CJS/ESM module and numerous other benefits and optimizations. Rollup is used to produce the `dist` folders for both Reactivator and LiveKit. 
+I have also experimented with very basic, generic use of [Rollup](https://rollupjs.org/) as an optional delivery mechanism in order to gain automatic tree-shaking, simplify CJS/ESM module and numerous other benefits and optimizations. Rollup is used to produce the `dist` folders for both Reactivator and LiveKit.
 
 Note that LiveKit is not yet available which is why *this* project describes it in this detail.

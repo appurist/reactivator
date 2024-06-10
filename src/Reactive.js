@@ -1,4 +1,4 @@
-var reactiveHandler = function (instance, name) {
+const reactiveHandler = function (instance, name) {
   let _dirty = 0;
 	return {
     // standard JavaScript Proxy getter
@@ -16,24 +16,24 @@ var reactiveHandler = function (instance, name) {
         let newName = `${name || ''}.${prop}`;
         //console.log(`>> New proxy for ${newName}`);
         return new Proxy(obj[prop], reactiveHandler(instance, newName));
-      }        
+      }
 
       return obj[prop];
     },
     // standard JavaScript Proxy setter
     set (obj, prop, value) {
       _dirty++;
-      // console.log(`Proxy set '${prop}' to ${value}`); 
+      // console.log(`Proxy set '${prop}' to ${value}`);
       // if (prop === '_reactive') return instance._reactive = value;
       if (prop === '_subs') return instance._subs = value;
       if (prop === '_name') return instance._name = value;
       if (prop === '_options') return instance._options = value;
 
-      // console.log(`Proxy set for '${prop}' from ${old} to ${value}`); 
+      // console.log(`Proxy set for '${prop}' from ${old} to ${value}`);
       let old = obj[prop];
       obj[prop] = value;
       // notify observers
-      instance._subs.forEach(sub => 
+      instance._subs.forEach(sub =>
         sub(old, value, prop, name, value)
       );
       return obj[prop];

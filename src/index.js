@@ -1,6 +1,6 @@
-import { Ref } from './Ref.mjs';
-import { Computed } from './Computed.mjs';
-import { Reactive } from './Reactive.mjs';
+import { Ref } from './Ref.js';
+import { Computed } from './Computed.js';
+import { Reactive } from './Reactive.js';
 
 function dumpValue(val, objToJSON) {
   let result = ''

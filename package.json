@@ -1,7 +1,7 @@
 {
   "name": "reactivator",
   "description": "A framework-independent package to transform data elements into reactive ones.",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": "Paul Whittemore <dev@appurist.com>",
   "license": "MIT",
   "type": "module",
@@ -46,16 +46,23 @@
   "resolutions": {
     "ansi-regex": "5.0.1"
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^21",
-    "@rollup/plugin-node-resolve": "^13",
-    "auto-changelog": "^2.3.0",
-    "cypress": "^9.2.0",
-    "mkdirp": "^1.0.4",
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "auto-changelog": "^2.4.0",
+    "cypress": "^13.11.0",
+    "mkdirp": "^3.0.1",
     "npm-run-all": "^4.1.5",
-    "release-it": "^14.0.3",
-    "rollup": "^2.63.0",
-    "shx": "^0.3.2"
-  }
+    "release-it": "^17.3.0",
+    "rollup": "^4.18.0",
+    "shx": "^0.3.4"
+  },
+  "packageManager": "pnpm@9.2.0+sha512.98a80fd11c2e7096747762304106432b3ddc67dcf54b5a8c01c93f68a2cd5e05e6821849522a06fb76284d41a2660d5e334f2ee3bbf29183bf2e739b1dafa771"
 }
